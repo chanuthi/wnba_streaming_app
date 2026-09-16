@@ -1,5 +1,7 @@
 import { useState } from "react";
 import './ZipEntryScreen.css';
+import githubIcon from './assets/social/github.svg';
+import linkedinIcon from './assets/social/linkedin.svg';
 
 declare module '*.css';
 declare module '*.module.css';
@@ -49,6 +51,15 @@ function ZipEntryScreen({ initialZip, onSubmit }: ZipEntryScreenProps) {
       {validationError && (
         <p style={{ color: "red" }}>{validationError}</p>
       )}
+
+      <div className="social-links">
+        <a href="https://github.com/chanuthi" target="_blank" rel="noopener noreferrer">
+          <img src={githubIcon} alt="GitHub" />
+        </a>
+        <a href="https://www.linkedin.com/in/chanuthi/" target="_blank" rel="noopener noreferrer">
+          <img src={linkedinIcon} alt="LinkedIn" />
+        </a>
+      </div>
     </div>
   );
 }
