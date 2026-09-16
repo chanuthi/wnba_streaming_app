@@ -25,6 +25,22 @@
     background-size: 100%, 26px 26px;
 }
 
+.picker-title-wrap {
+    position: absolute;
+    top: 16px;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.picker-back-wrap {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 10;
+}
+
 .picker-title {
     font-family: "Slabo 13px", serif;
     font-size: 32px;
@@ -36,6 +52,20 @@
     font-family: "Google Sans Flex", sans-serif;
     font-size: 15px;
     margin: 4px 0 0 0;
+}
+
+/* Both the back button and the title sit at the same top:16px, and the
+   title is centered across the FULL width - on a narrow screen the
+   centered text extends far enough left to land under the back button.
+   Push the title down below it instead. */
+@media (max-width: 640px) {
+    .picker-title-wrap {
+        top: 72px;
+    }
+
+    .picker-title {
+        font-size: 24px;
+    }
 }
 
 /* Same pill-button look as ResultsScreen.css's .pill-button - kept as its

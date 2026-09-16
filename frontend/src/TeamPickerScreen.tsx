@@ -38,7 +38,11 @@ function TeamPickerScreen({ onSelect, onBack }: TeamPickerScreenProps) {
   return (
     <div
       className="picker-body"
-      style={{ position: "relative", width: "100%", height: "100vh" }}
+      // touch-action: none is required here, not just a nice-to-have - without
+      // it, mobile browsers treat this drag gesture as a page scroll and
+      // swallow the pointermove events before onPointerMove below ever sees
+      // them (same reason tap-to-select can feel unreliable on touch too).
+      style={{ position: "relative", width: "100%", height: "100vh", touchAction: "none" }}
       onPointerDown={(e) => { drag.isDragging = true; drag.lastX = e.clientX; }}
       onPointerMove={(e) => {
         if (!drag.isDragging) return;
@@ -47,22 +51,14 @@ function TeamPickerScreen({ onSelect, onBack }: TeamPickerScreenProps) {
       }}
       onPointerUp={() => { drag.isDragging = false; }}
       onPointerLeave={() => { drag.isDragging = false; }}
+      onPointerCancel={() => { drag.isDragging = false; }}
       onWheel={(e) => { drag.targetY -= e.deltaY * 0.002; }}
     >
-      <div style={{ position: "absolute", top: 16, left: 16, zIndex: 10 }}>
+      <div className="picker-back-wrap">
         <button className="picker-back" onClick={onBack}>&larr; Back</button>
       </div>
 
-      <div
-        style={{
-          position: "absolute",
-          top: 16,
-          width: "100%",
-          textAlign: "center",
-          zIndex: 10,
-          pointerEvents: "none",
-        }}
-      >
+      <div className="picker-title-wrap">
         <h1 className="picker-title">Pick your favorite team</h1>
         <p className="picker-subtitle">Drag or scroll to rotate, click a logo to select</p>
       </div>
@@ -80,7 +76,7 @@ function TeamPickerScreen({ onSelect, onBack }: TeamPickerScreenProps) {
       )}
 
       {teams.length > 0 && (
-        <Canvas camera={{ position: [0, 0, 100], fov: 15 }}>
+        <Canvas camera={{ position: [0, 0, 100], fov: 15 }} style={{ touchAction: "none" }}>
 
           <fog attach="fog" args={["#a79", 8.5, 12]} />
           <Rig rotation={[0, 0, 0.15]}>
