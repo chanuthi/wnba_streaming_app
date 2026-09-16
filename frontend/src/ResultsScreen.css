@@ -161,6 +161,35 @@
     object-fit: contain;
 }
 
+/* Below this width there isn't enough room for the logo (fixed 150px, left-
+   anchored) and the full-width-centered text to both fit without the text
+   drifting under the logo - so drop the absolute-positioning trick entirely
+   and stack logo above name/message instead, both simply centered. */
+@media (max-width: 640px) {
+    .results-header {
+        position: static;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .results-header-text,
+    .results-team-logo {
+        position: static;
+        left: auto;
+        right: auto;
+        top: auto;
+        transform: none;
+    }
+
+    .results-team-logo {
+        height: 100px;
+        width: 100px;
+    }
+}
+
 .results-note {
     font-size: 15px;
     margin: 4px 0;
