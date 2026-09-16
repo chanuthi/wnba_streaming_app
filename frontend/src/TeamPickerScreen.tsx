@@ -22,8 +22,16 @@ const drag = { targetY: 0, isDragging: false, lastX: 0 };
 function TeamPickerScreen({ onSelect, onBack }: TeamPickerScreenProps) {
   const [teams, setTeams] = useState<Team[]>([]);
   const [error, setError] = useState<string | null>(null);
+  // The backend is on a free tier that spins down after inactivity - the
+  // first request after that can take 30-60s while it wakes back up. A
+  // plain "Loading teams..." with no explanation looks identical to a
+  // hung/broken page, so swap the message after a few seconds instead of
+  // leaving the user guessing.
+  const [slowLoad, setSlowLoad] = useState(false);
 
   useEffect(() => {
+    const slowLoadTimer = setTimeout(() => setSlowLoad(true), 4000);
+
     fetch(`${API_BASE_URL}/teams`)
       .then((response) => {
         if (!response.ok) {
@@ -32,7 +40,10 @@ function TeamPickerScreen({ onSelect, onBack }: TeamPickerScreenProps) {
         return response.json();
       })
       .then((data: Team[]) => setTeams(data))
-      .catch((err) => setError(err.message));
+      .catch((err) => setError(err.message))
+      .finally(() => clearTimeout(slowLoadTimer));
+
+    return () => clearTimeout(slowLoadTimer);
   }, []);
 
   return (
@@ -70,8 +81,24 @@ function TeamPickerScreen({ onSelect, onBack }: TeamPickerScreenProps) {
       )}
 
       {!error && teams.length === 0 && (
-        <div className="picker-status" style={{ position: "absolute", top: 100, width: "100%", textAlign: "center" }}>
-          Loading teams...
+        <div
+          className="picker-status"
+          style={{
+            position: "absolute",
+            top: 100,
+            width: "100%",
+            textAlign: "center",
+            padding: "0 24px",
+          }}
+        >
+          {slowLoad ? (
+            <span style={{ display: "inline-block", maxWidth: 420 }}>
+              Still getting the teams - our server may be waking up after sitting idle,
+              which can take up to a minute on the first visit. Hang tight, or refresh in a bit.
+            </span>
+          ) : (
+            "Loading teams..."
+          )}
         </div>
       )}
 
