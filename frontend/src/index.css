@@ -7,12 +7,13 @@ padding: 0;
 box-sizing: border-box;
 }
 
+/* No background here on purpose - every screen (ZipEntryScreen's .body,
+   TeamPickerScreen's .picker-body, ResultsScreen's .results-body) paints
+   its own full-viewport background already. This used to also set the
+   hoop-svg background, which painted immediately on page load - before
+   React even mounted - causing a visible flash of it before the first
+   screen's own background covered it up. */
 body {
   min-height:100vh;
   margin:0;
-  background-color: #fff5ef;
-  background-image: url('./assets/Light.svg');
-  background-repeat:no-repeat;
-  background-size:100%;
-  background-position:center top;
 }
