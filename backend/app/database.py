@@ -1,0 +1,37 @@
+"""
+Database connection and session setup.
+Reads DATABASE_URL from a .env file so the connection string never lives in code.
+"""
+
+import os
+from dotenv import load_dotenv
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+load_dotenv()
+
+# Example values for .env:
+#   Postgres: DATABASE_URL=postgresql://postgres:devpass@localhost:5432/wnba
+#   SQLite (simplest to start): DATABASE_URL=sqlite:///./wnba.db
+
+# Falls back to an absolute path (backend/wnba.db) rather than a cwd-relative one,
+# since uvicorn isn't always launched with backend/ as the working directory.
+_BACKEND_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_DEFAULT_SQLITE_URL = "sqlite:///" + os.path.join(_BACKEND_DIR, "wnba.db")
+
+DATABASE_URL = os.getenv("DATABASE_URL", _DEFAULT_SQLITE_URL)
+
+# check_same_thread is only needed for SQLite; harmless to set conditionally
+connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
+
+engine = create_engine(DATABASE_URL, connect_args=connect_args)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+
+def get_db():
+    """FastAPI dependency - yields a session, closes it after the request."""
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

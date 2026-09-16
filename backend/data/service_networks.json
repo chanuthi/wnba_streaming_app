@@ -1,0 +1,42 @@
+{
+  "_comment": "Junction table: service <-> network. This is the table that replaces the Sub1/Sub2/Sub3 columns from the paper sketch. When a carriage deal changes, edit ONE row here instead of every game. 'conditions' marks rows that only apply for some users.",
+  "service_networks": [
+    { "service_id": "antenna",         "network_id": "abc",        "conditions": "local ABC affiliate must carry the game; national ABC games generally yes" },
+    { "service_id": "antenna",         "network_id": "cbs",        "conditions": "local CBS affiliate" },
+    { "service_id": "antenna",         "network_id": "nbc",        "conditions": "local NBC affiliate" },
+    { "service_id": "antenna",         "network_id": "ion",        "conditions": "ION OTA in all 210 US markets; Friday games regionalized" },
+
+    { "service_id": "sling_freestream","network_id": "ion",        "conditions": "Friday games regionalized by market" },
+
+    { "service_id": "league_pass",     "network_id": "local",      "conditions": "OUT-OF-MARKET users only; in-market games blacked out" },
+
+    { "service_id": "peacock",         "network_id": "nbc",        "conditions": null },
+    { "service_id": "peacock",         "network_id": "usa",        "conditions": null },
+    { "service_id": "peacock",         "network_id": "peacock_ex", "conditions": null },
+
+    { "service_id": "paramount_plus",  "network_id": "cbs",        "conditions": null },
+
+    { "service_id": "prime_video",     "network_id": "prime",      "conditions": null },
+
+    { "service_id": "espn_unlimited",  "network_id": "espn",       "conditions": null },
+    { "service_id": "espn_unlimited",  "network_id": "abc",        "conditions": "ESPN-produced ABC games via ESPN app" },
+
+    { "service_id": "frndly",          "network_id": "ion",        "conditions": null },
+
+    { "service_id": "youtube_tv",      "network_id": "abc",        "conditions": "local affiliate availability" },
+    { "service_id": "youtube_tv",      "network_id": "cbs",        "conditions": "local affiliate availability" },
+    { "service_id": "youtube_tv",      "network_id": "nbc",        "conditions": "local affiliate availability" },
+    { "service_id": "youtube_tv",      "network_id": "espn",       "conditions": null },
+    { "service_id": "youtube_tv",      "network_id": "ion",        "conditions": null },
+    { "service_id": "youtube_tv",      "network_id": "usa",        "conditions": null },
+    { "service_id": "youtube_tv",      "network_id": "nbatv",      "conditions": null },
+
+    { "service_id": "fubo",            "network_id": "abc",        "conditions": "local affiliate availability" },
+    { "service_id": "fubo",            "network_id": "cbs",        "conditions": "local affiliate availability" },
+    { "service_id": "fubo",            "network_id": "espn",       "conditions": null },
+    { "service_id": "fubo",            "network_id": "ion",        "conditions": null },
+    { "service_id": "fubo",            "network_id": "nbatv",      "conditions": null },
+
+    { "service_id": "directv_myent",   "network_id": "ion",        "conditions": null }
+  ]
+}

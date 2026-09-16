@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "backend",
+      "runtimeExecutable": "C:\\Users\\Vidara\\Desktop\\wnba streaming app\\wnba-streaming-app\\backend\\venv\\Scripts\\uvicorn.exe",
+      "runtimeArgs": ["app.main:app", "--reload", "--port", "8000"],
+      "cwd": "C:\\Users\\Vidara\\Desktop\\wnba streaming app\\wnba-streaming-app\\backend",
+      "port": 8000
+    },
+    {
+      "name": "frontend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "cwd": "C:\\Users\\Vidara\\Desktop\\wnba streaming app\\wnba-streaming-app\\frontend",
+      "port": 5173
+    }
+  ]
+}

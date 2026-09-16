@@ -1,0 +1,36 @@
+.results-body {
+    min-height: 100vh;
+    padding: 24px;
+    box-sizing: border-box;
+
+    /* Same theme as TeamPickerScreen.css: cream base, hoop svg on top,
+       orange dot grid tiled underneath it. See that file's comments for
+       the full breakdown of how the dot-grid layer works. */
+    background-color: #fff5ef;
+    background-image:
+        url('./assets/Light.svg'),
+        radial-gradient(circle, rgba(227, 82, 5, 0.18) 1.4px, transparent 1.5px);
+    background-repeat: no-repeat, repeat;
+    background-position: center top, center;
+    background-size: 100%, 26px 26px;
+
+    /* Default font for all body/UI text in this screen; headings below
+       override back to the serif used for headlines on the other screens. */
+    font-family: "Google Sans Flex", sans-serif;
+}
+
+.results-body h1,
+.results-body h2 {
+    font-family: "Slabo 13px", serif;
+    font-weight: 700;
+}
+
+.results-body h1 {
+    font-size: 40px;
+    margin: 16px 0 4px 0;
+}
+
+.results-body h2 {
+    font-size: 24px;
+    margin: 24px 0 8px 0;
+}

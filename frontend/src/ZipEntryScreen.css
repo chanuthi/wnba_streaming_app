@@ -1,0 +1,150 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    height: 100vh;
+    padding: 0 24px;
+    text-align: center;
+
+    /* Base rust color, sits underneath both gradient layers below. */
+    background-color: #96402c;
+
+    /* background-image can take a comma-separated list of layers.
+       The FIRST layer listed paints on TOP, later layers underneath.
+       So: fog glow (layer 1, on top) sits over the dot grid (layer 2, below it). */
+    background-image:
+        /* Layer 1 - the "fog" highlight.
+           One soft radial gradient the size of the whole element (see background-size below).
+           "ellipse 70% 55% at 50% 38%" = an oval, 70% as wide / 55% as tall as the box,
+           centered horizontally and slightly above vertical-middle (38% from the top) -
+           that's what puts the glow behind the headline instead of dead-center.
+           It starts as translucent cream (0.22 alpha) and fades to fully transparent
+           (alpha 0) by the time it reaches 70% of the way to its edge. */
+        radial-gradient(ellipse 70% 55% at 50% 38%, rgba(255, 241, 224, 0.22), rgba(255, 241, 224, 0) 70%),
+
+        /* Layer 2 - a single dot, later tiled into a grid (see the dot-grid trick below).
+           This is just one tiny circle gradient: solid cream out to a 1.4px radius,
+           then fully transparent from 1.5px outward. The 1.4px -> 1.5px gap is a soft
+           edge so the dot doesn't look jagged/pixelated. */
+        radial-gradient(circle, rgba(255, 241, 224, 0.28) 1.4px, transparent 1.5px);
+
+    /* background-size has one value per layer above, in the same order.
+       Layer 1 (fog): "100% 100%" stretches that one gradient to fill the whole element.
+       Layer 2 (dot): "26px 26px" is the actual trick - it shrinks that one-dot gradient
+       down to a tiny 26x26px tile. Combined with the default background-repeat below,
+       the browser tiles that tiny tile edge-to-edge across the whole background,
+       which is what turns "one dot" into "a grid of dots every 26px". */
+    background-size: 100% 100%, 26px 26px;
+
+    /* background-repeat, again one value per layer.
+       Layer 1 (fog): "no-repeat" - we only want the one big glow, not tiled copies of it.
+       Layer 2 (dot): "repeat" - this is what actually tiles the 26x26px dot tile
+       across the full width/height, producing the grid pattern. */
+    background-repeat: no-repeat, repeat;
+
+    /* background-position, one value per layer. Both just "center" here -
+       keeps the fog glow centered, and keeps the dot grid's tiling aligned
+       starting from the center outward (mostly matters if you ever resize the tile). */
+    background-position: center, center;
+}
+
+/* -------------------------------- */
+/* Question text                    */
+/* -------------------------------- */
+
+.question-wrapper {
+    position: relative;
+    max-width: 800px;
+}
+
+.question {
+    font-family: "Slabo 13px", serif;
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.15;
+    text-align: center;
+    margin: 0;
+    color: #fff5ef;
+}
+
+.notice {
+    font-family: "Google Sans Flex", sans-serif;
+    font-size: 15px;
+    color: #fff5ef;
+    opacity: 0.7;
+    margin: -16px 0 0 0;
+}
+
+/* -------------------------------- */
+/* Form                             */
+/* -------------------------------- */
+
+.zipform {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    background-color: #fff5ef;
+    border-radius: 999px;
+    padding: 6px 6px 6px 28px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.zipform input {
+    font-family: "Google Sans Flex", sans-serif;
+    font-size: 22px;
+    line-height: 1.05;
+    text-align: left;
+    width: 180px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #5c2c1f;
+    padding: 0;
+    font-variation-settings:
+        "slnt" 0,
+        "wdth" 100,
+        "GRAD" 0,
+        "ROND" 0;
+}
+
+.zipform input::placeholder {
+    color: #c9a493;
+}
+
+.zipform button {
+    position: relative;
+    background-color: #e35205;
+    border: none;
+    border-radius: 999px;
+    padding: 0;
+    cursor: pointer;
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.zipform button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 20px;
+    height: 20px;
+    background-color: #fff5ef;
+    -webkit-mask-image: url('./assets/next-button.svg');
+    mask-image: url('./assets/next-button.svg');
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+}
+
+.zipform button:hover {
+    transform: translateX(4px);
+}

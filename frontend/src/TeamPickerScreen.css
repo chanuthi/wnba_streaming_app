@@ -1,0 +1,50 @@
+.picker-body {
+    /* Base cream color underneath both layers below. */
+    background-color: #fff5ef;
+
+    /* Same layering idea as ZipEntryScreen.css's .body (see the comments there
+       for the full breakdown of the dot-grid trick) - first layer listed paints
+       on top. Here layer 1 is the hoop SVG graphic (kept visible per the design
+       ask), and layer 2 is the same "one dot, tiled small" trick, just recolored
+       orange (227, 82, 5) to show up against this light background instead of
+       the near-white dots used on the rust-background screen. */
+    background-image:
+        url('./assets/Light.svg'),
+        radial-gradient(circle, rgba(227, 82, 5, 0.18) 1.4px, transparent 1.5px);
+
+    /* Layer 1 (svg): no-repeat, just show it once. Layer 2 (dot): repeat, so the
+       tiny 26x26px tile (set in background-size below) tiles into a full grid. */
+    background-repeat: no-repeat, repeat;
+
+    /* Layer 1 (svg): pinned to the top-center. Layer 2 (dot): centered. */
+    background-position: center top, center;
+
+    /* Layer 1 (svg): scaled to the element's full width. Layer 2 (dot): shrunk
+       to a 26x26px tile - this is what makes background-repeat above tile it
+       into a grid instead of stretching it into one giant dot. */
+    background-size: 100%, 26px 26px;
+}
+
+.picker-title {
+    font-family: "Slabo 13px", serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.picker-subtitle {
+    font-family: "Google Sans Flex", sans-serif;
+    font-size: 15px;
+    margin: 4px 0 0 0;
+}
+
+.picker-back {
+    font-family: "Google Sans Flex", sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.picker-status {
+    font-family: "Google Sans Flex", sans-serif;
+    font-size: 16px;
+}

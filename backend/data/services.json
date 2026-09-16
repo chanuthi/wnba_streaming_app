@@ -1,0 +1,96 @@
+{
+  "_comment": "Streaming/viewing options a user can 'buy'. Prices in USD/month as of June 2026 — re-verify before launch, these change often. monthly_price 0 = free. special_rules flags services whose availability depends on user location.",
+  "services": [
+    {
+      "id": "antenna",
+      "name": "TV Antenna (free over-the-air)",
+      "monthly_price": 0.00,
+      "one_time_price": 25.00,
+      "type": "ota",
+      "special_rules": "Requires one-time antenna purchase (~$25). Picks up local OTA affiliates (ABC, CBS, NBC, ION) — availability/reception varies by market.",
+      "url": null
+    },
+    {
+      "id": "sling_freestream",
+      "name": "Sling Freestream",
+      "monthly_price": 0.00,
+      "type": "fast",
+      "special_rules": "Free ad-supported tier. Carries ION live; Friday WNBA games are regionalized by market.",
+      "url": "https://www.sling.com"
+    },
+    {
+      "id": "league_pass",
+      "name": "WNBA League Pass",
+      "monthly_price": 14.99,
+      "annual_price": 39.99,
+      "type": "league_dtc",
+      "special_rules": "OUT-OF-MARKET ONLY for live games. Blacked out: (1) games in the user's local team market, (2) all nationally televised games (ABC, ESPN, ESPN2, CBS, CBSSN, Disney+, Prime Video, NBA TV, NBC, Peacock, USA Network). Blacked-out games available on demand next day 6AM ET.",
+      "url": "https://www.wnba.com/leaguepass"
+    },
+    {
+      "id": "peacock",
+      "name": "Peacock Premium",
+      "monthly_price": 10.99,
+      "type": "svod",
+      "special_rules": null,
+      "url": "https://www.peacocktv.com"
+    },
+    {
+      "id": "paramount_plus",
+      "name": "Paramount+ Essential",
+      "monthly_price": 8.99,
+      "annual_price": 89.99,
+      "type": "svod",
+      "special_rules": "Essential tier carries the WNBA-on-CBS games. The $12.99 tier adds live local CBS station.",
+      "url": "https://www.paramountplus.com"
+    },
+    {
+      "id": "prime_video",
+      "name": "Amazon Prime Video",
+      "monthly_price": 8.99,
+      "type": "svod",
+      "special_rules": "Standalone Prime Video price; also included with full Amazon Prime ($14.99/mo).",
+      "url": "https://www.amazon.com/primevideo"
+    },
+    {
+      "id": "espn_unlimited",
+      "name": "ESPN Unlimited (DTC)",
+      "monthly_price": 29.99,
+      "type": "sports_dtc",
+      "special_rules": "Includes ESPN, ESPN2, and ESPN-on-ABC games via the ESPN app.",
+      "url": "https://www.espn.com"
+    },
+    {
+      "id": "frndly",
+      "name": "Frndly TV",
+      "monthly_price": 6.99,
+      "type": "live_tv",
+      "special_rules": "Budget live-TV service; carries ION.",
+      "url": "https://www.frndlytv.com"
+    },
+    {
+      "id": "youtube_tv",
+      "name": "YouTube TV",
+      "monthly_price": 82.99,
+      "type": "live_tv",
+      "special_rules": "Promo pricing often available for first months. Local affiliates (ABC/CBS/NBC) depend on user market.",
+      "url": "https://tv.youtube.com"
+    },
+    {
+      "id": "fubo",
+      "name": "Fubo Pro",
+      "monthly_price": 73.99,
+      "type": "live_tv",
+      "special_rules": "First-month promo ~$48.99. VERIFY NBC/USA carriage before relying on it — sources list ABC, ESPN, ION, CBS, CBSSN, NBA TV.",
+      "url": "https://www.fubo.tv"
+    },
+    {
+      "id": "directv_myent",
+      "name": "DirecTV MyEntertainment",
+      "monthly_price": 34.99,
+      "type": "live_tv",
+      "special_rules": "Genre-pack tier (~40 channels) that includes ION. Full Entertainment package ($89.99) adds ESPN, USA, NBC, etc.",
+      "url": "https://www.directv.com"
+    }
+  ]
+}
