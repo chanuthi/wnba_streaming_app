@@ -38,13 +38,17 @@ function ZipEntryScreen({ initialZip, onSubmit }: ZipEntryScreenProps) {
       <p className="notice">We won't save your zip code or any personal data.</p>
 
       <form onSubmit={handleSubmit} className="zipform">
-        <input
-          type="text"
-          value={zip}
-          onChange={(e) => setZip(e.target.value)}
-          placeholder="e.g 46201"
-          maxLength={5}
-        />
+        <div className="zipform-field">
+          <label htmlFor="zip-input" className="zipform-label">Zip code</label>
+          <input
+            id="zip-input"
+            type="text"
+            value={zip}
+            onChange={(e) => setZip(e.target.value)}
+            placeholder="e.g 46201"
+            maxLength={5}
+          />
+        </div>
         <button type="submit" aria-label="Continue" />
       </form>
 

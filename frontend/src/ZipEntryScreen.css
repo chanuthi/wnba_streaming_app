@@ -93,6 +93,21 @@
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
 }
 
+.zipform-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.zipform-label {
+    font-family: "Google Sans Flex", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #c9a493;
+}
+
 .zipform input {
     font-family: "Google Sans Flex", sans-serif;
     font-size: 22px;
