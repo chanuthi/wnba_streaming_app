@@ -38,10 +38,25 @@
     margin: 4px 0 0 0;
 }
 
+/* Same pill-button look as ResultsScreen.css's .pill-button - kept as its
+   own rule here since each screen has its own CSS file, but the values
+   should stay in sync if that style ever changes. */
 .picker-back {
     font-family: "Google Sans Flex", sans-serif;
-    font-size: 15px;
+    background-color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #5c2c1f;
     cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.15s ease;
+}
+
+.picker-back:hover {
+    transform: translateY(-1px);
 }
 
 .picker-status {

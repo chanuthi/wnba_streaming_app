@@ -29,6 +29,15 @@
 
 .results-body h1 {
     font-size: 40px;
+    /* The hoop-graphic background SVG has a thick black stroke that runs
+       right through this headline's position (background-position: center
+       top) - a soft cream halo keeps the dark text readable wherever it
+       happens to cross that line, instead of the two just merging. */
+    text-shadow:
+        0 0 10px #fff5ef,
+        0 0 10px #fff5ef,
+        0 0 10px #fff5ef,
+        0 0 10px #fff5ef;
 }
 
 .results-body h2 {
@@ -115,10 +124,55 @@
     margin: 24px auto 0;
 }
 
+.results-header {
+    /* The logo is taken out of normal flow (absolutely positioned) below,
+       so it doesn't eat into the row's width - otherwise centering the
+       text within "whatever space is left after the logo" drifts the
+       center off to the right of the row's actual center, instead of
+       lining up with the middle of the hoop graphic's two vertical lines. */
+    position: relative;
+    min-height: 150px;
+}
+
+.results-header-text {
+    /* Same idea as the logo below - pulled out of flow and vertically
+       centered the same way, so this block's vertical center actually
+       lines up with the logo's center instead of just sitting at the top
+       of the row. */
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+.results-team-logo {
+    /* Sized against the combined height of the name + market-status line
+       below it (not just the headline alone) - big enough that centering
+       it against that whole two-line block actually reads as one unit,
+       instead of a small icon awkwardly centered against a taller stack. */
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 150px;
+    width: 150px;
+    object-fit: contain;
+}
+
 .results-note {
     font-size: 15px;
     margin: 4px 0;
     color: #6b4a3e;
+    /* Same reason as h1's halo above - this line sits right under the
+       headline, in the same zone the background hoop's black stroke crosses. */
+    text-shadow:
+        0 0 8px #fff5ef,
+        0 0 8px #fff5ef,
+        0 0 8px #fff5ef,
+        0 0 8px #fff5ef;
+
 }
 
 .results-note-warning {

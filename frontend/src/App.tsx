@@ -2,21 +2,22 @@ import { useState } from "react";
 import ZipEntryScreen from "./ZipEntryScreen";
 import TeamPickerScreen from "./TeamPickerScreen";
 import ResultsScreen from "./ResultsScreen";
+import type { Team } from "./types";
 
 type Step = "zip" | "team" | "results";
 
 function App() {
   const [step, setStep] = useState<Step>("zip");
   const [zipCode, setZipCode] = useState("");
-  const [selectedTeamId, setSelectedTeamId] = useState<number | null>(null);
+  const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
 
   function handleZipSubmit(zip: string) {
     setZipCode(zip);
     setStep("team");
   }
 
-  function handleTeamSelect(teamId: number) {
-    setSelectedTeamId(teamId);
+  function handleTeamSelect(team: Team) {
+    setSelectedTeam(team);
     setStep("results");
   }
 
@@ -44,9 +45,9 @@ function App() {
         <TeamPickerScreen onSelect={handleTeamSelect} onBack={handleBackToZip} />
       )}
 
-      {step === "results" && selectedTeamId !== null && (
+      {step === "results" && selectedTeam !== null && (
         <ResultsScreen
-          teamId={selectedTeamId}
+          team={selectedTeam}
           zipCode={zipCode}
           onZipChange={handleZipChangeFromResults}
           onBackToTeam={handleBackToTeam}

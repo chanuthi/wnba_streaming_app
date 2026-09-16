@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from "react";
-import type { RecommendationResult } from "./types";
+import { useState, useEffect } from "react";
+import type { RecommendationResult, Team } from "./types";
 import { API_BASE_URL } from "./api/config";
+import { logoUrl } from "./teamLogo";
 import "./ResultsScreen.css";
 
 function formatPrice(price: number | null): string {
@@ -10,13 +11,13 @@ function formatPrice(price: number | null): string {
 
 
 interface ResultsScreenProps {
-  teamId: number;
+  team: Team;
   zipCode: string;
   onZipChange: (newZip: string) => void;
   onBackToTeam: () => void;
 }
 
-function ResultsScreen({ teamId, zipCode, onZipChange, onBackToTeam }: ResultsScreenProps) {
+function ResultsScreen({ team, zipCode, onZipChange, onBackToTeam }: ResultsScreenProps) {
   const [result, setResult] = useState<RecommendationResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,11 +25,11 @@ function ResultsScreen({ teamId, zipCode, onZipChange, onBackToTeam }: ResultsSc
   const [editorOpen, setEditorOpen] = useState(false);
   const [zipDraft, setZipDraft] = useState(zipCode);
 
-  // Re-fetches every time teamId OR zipCode changes - this is what makes
+  // Re-fetches every time team OR zipCode changes - this is what makes
   // "change your zip" actually update the results without a page reload.
   useEffect(() => {
     setResult(null); // show "Loading..." again while the new fetch is in flight
-    fetch(`${API_BASE_URL}/recommend?team_id=${teamId}&zip_code=${zipCode}`)
+    fetch(`${API_BASE_URL}/recommend?team_id=${team.id}&zip_code=${zipCode}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Server responded with ${response.status}`);
@@ -37,7 +38,7 @@ function ResultsScreen({ teamId, zipCode, onZipChange, onBackToTeam }: ResultsSc
       })
       .then((data: RecommendationResult) => setResult(data))
       .catch((err) => setError(err.message));
-  }, [teamId, zipCode]);
+  }, [team.id, zipCode]);
 
   function handleZipUpdate(e: React.FormEvent) {
     e.preventDefault();
@@ -75,17 +76,23 @@ function ResultsScreen({ teamId, zipCode, onZipChange, onBackToTeam }: ResultsSc
         </div>
       )}
 
-      {!result ? (
-        <div className="results-content">
-          <p className="results-note">Loading recommendation...</p>
+      <div className="results-content">
+        <div className="results-header">
+          <img className="results-team-logo" src={logoUrl(team)} alt={`${team.name} logo`} />
+          <div className="results-header-text">
+            <h1>{team.name}</h1>
+            <p className="results-note">
+              {result
+                ? result.in_market
+                  ? "You're in this team's home market."
+                  : "You're outside this team's home market."
+                : "Loading recommendation..."}
+            </p>
+          </div>
         </div>
-      ) : (
-        <div className="results-content">
-          <h1>{result.team}</h1>
-          <p className="results-note">
-            {result.in_market ? "You're in this team's home market." : "You're outside this team's home market."}
-          </p>
 
+        {result && (
+          <>
           <div className="results-stats">
             <div className="stat-tile">
               <div className="stat-tile-value">{result.total_games}</div>
@@ -168,8 +175,9 @@ function ResultsScreen({ teamId, zipCode, onZipChange, onBackToTeam }: ResultsSc
               </li>
             ))}
           </ul>
-        </div>
-      )}
+          </>
+        )}
+      </div>
     </div>
   );
 }

@@ -5,23 +5,19 @@ import { Image, Environment, Text } from "@react-three/drei";
 import { easing } from "maath";
 import type { Team } from "./types";
 import { API_BASE_URL } from "./api/config";
+import { logoUrl } from "./teamLogo";
 import { flipImageHorizontally } from "./flipImage";
 import "./util";
 import "./TeamPickerScreen.css";
 import googleSansFlexUrl from "./assets/fonts/GoogleSansFlex-Regular.woff";
 
 interface TeamPickerScreenProps {
-  onSelect: (teamId: number) => void;
+  onSelect: (team: Team) => void;
   onBack: () => void;
 }
 
 // Drag state lives outside components so Rig's useFrame can read it every frame
 const drag = { targetY: 0, isDragging: false, lastX: 0 };
-
-function logoUrl(team: Team): string {
-  if (!team.abbreviation) return "";
-  return `https://a.espncdn.com/i/teamlogos/wnba/500/${team.abbreviation.toLowerCase()}.png`;
-}
 
 function TeamPickerScreen({ onSelect, onBack }: TeamPickerScreenProps) {
   const [teams, setTeams] = useState<Team[]>([]);
@@ -117,7 +113,7 @@ function Rig(props: any) {
 
 interface CarouselProps {
   teams: Team[];
-  onSelect: (teamId: number) => void;
+  onSelect: (team: Team) => void;
 }
 
 function Carousel({ teams, onSelect }: CarouselProps) {
@@ -144,7 +140,7 @@ function Carousel({ teams, onSelect }: CarouselProps) {
 
 interface CardProps {
   team: Team;
-  onSelect: (teamId: number) => void;
+  onSelect: (team: Team) => void;
   position: [number, number, number];
   rotation: [number, number, number];
 }
@@ -177,7 +173,7 @@ function Card({ team, onSelect, ...props }: CardProps) {
 
   const handleSelect = (e: any) => {
     e.stopPropagation(); // 👈 This stops the click from bleeding through to items behind it
-    onSelect(team.id);
+    onSelect(team);
   };
 
 
