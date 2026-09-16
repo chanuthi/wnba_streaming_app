@@ -8,7 +8,12 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-load_dotenv()
+# Resolved relative to this file, not the process's cwd - load_dotenv() with
+# no path only searches upward from the current working directory, which
+# breaks the same way the old SQLite default path did when uvicorn isn't
+# launched with backend/ as its cwd (see the launch.json workaround).
+_BACKEND_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+load_dotenv(os.path.join(_BACKEND_DIR, ".env"))
 
 # Example values for .env:
 #   Postgres: DATABASE_URL=postgresql://postgres:devpass@localhost:5432/wnba
@@ -16,7 +21,6 @@ load_dotenv()
 
 # Falls back to an absolute path (backend/wnba.db) rather than a cwd-relative one,
 # since uvicorn isn't always launched with backend/ as the working directory.
-_BACKEND_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _DEFAULT_SQLITE_URL = "sqlite:///" + os.path.join(_BACKEND_DIR, "wnba.db")
 
 DATABASE_URL = os.getenv("DATABASE_URL", _DEFAULT_SQLITE_URL)

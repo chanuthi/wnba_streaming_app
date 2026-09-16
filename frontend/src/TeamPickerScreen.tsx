@@ -4,6 +4,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Image, Environment, Text } from "@react-three/drei";
 import { easing } from "maath";
 import type { Team } from "./types";
+import { API_BASE_URL } from "./api/config";
 import { flipImageHorizontally } from "./flipImage";
 import "./util";
 import "./TeamPickerScreen.css";
@@ -27,7 +28,7 @@ function TeamPickerScreen({ onSelect, onBack }: TeamPickerScreenProps) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/teams")
+    fetch(`${API_BASE_URL}/teams`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Server responded with ${response.status}`);

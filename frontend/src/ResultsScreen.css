@@ -17,20 +17,248 @@
     /* Default font for all body/UI text in this screen; headings below
        override back to the serif used for headlines on the other screens. */
     font-family: "Google Sans Flex", sans-serif;
+    color: #3a2418;
 }
 
 .results-body h1,
 .results-body h2 {
     font-family: "Slabo 13px", serif;
     font-weight: 700;
+    margin: 0;
 }
 
 .results-body h1 {
     font-size: 40px;
-    margin: 16px 0 4px 0;
 }
 
 .results-body h2 {
-    font-size: 24px;
-    margin: 24px 0 8px 0;
+    font-size: 22px;
+    margin: 28px 0 10px 0;
+}
+
+/* -------------------------------- */
+/* Top bar (back button + zip toggle/editor) */
+/* -------------------------------- */
+
+.results-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.pill-button {
+    font-family: "Google Sans Flex", sans-serif;
+    background-color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #5c2c1f;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.15s ease;
+}
+
+.pill-button:hover {
+    transform: translateY(-1px);
+}
+
+.zip-editor {
+    max-width: 720px;
+    margin: 10px auto 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.zip-editor form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #fff;
+    border-radius: 999px;
+    padding: 6px 6px 6px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.zip-editor input {
+    font-family: "Google Sans Flex", sans-serif;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    width: 90px;
+    color: #5c2c1f;
+}
+
+.zip-editor button {
+    font-family: "Google Sans Flex", sans-serif;
+    background-color: #e35205;
+    color: #fff5ef;
+    border: none;
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* -------------------------------- */
+/* Main content column               */
+/* -------------------------------- */
+
+.results-content {
+    max-width: 720px;
+    margin: 24px auto 0;
+}
+
+.results-note {
+    font-size: 15px;
+    margin: 4px 0;
+    color: #6b4a3e;
+}
+
+.results-note-warning {
+    color: #b7245c;
+    font-weight: 600;
+}
+
+.results-stats {
+    display: flex;
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.stat-tile {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 14px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.stat-tile-value {
+    font-family: "Slabo 13px", serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #e35205;
+}
+
+.stat-tile-label {
+    font-size: 12px;
+    color: #8a6a5c;
+    margin-top: 2px;
+}
+
+/* -------------------------------- */
+/* Best single / best combo cards    */
+/* -------------------------------- */
+
+.results-card {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-left: 6px solid #e35205;
+}
+
+.results-card-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #e35205;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+}
+
+.results-card-title {
+    font-family: "Slabo 13px", serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.price-badge {
+    display: inline-block;
+    background-color: #fff0e6;
+    color: #e35205;
+    border-radius: 999px;
+    padding: 3px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.results-card-meta {
+    font-size: 14px;
+    color: #6b4a3e;
+    margin: 6px 0 0 0;
+}
+
+/* -------------------------------- */
+/* Full breakdown list               */
+/* -------------------------------- */
+
+.breakdown-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.breakdown-row {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 12px 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.breakdown-row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+}
+
+.breakdown-service {
+    font-weight: 700;
+}
+
+.breakdown-price {
+    font-size: 13px;
+    color: #e35205;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.breakdown-meta {
+    font-size: 12px;
+    color: #8a6a5c;
+    margin-top: 3px;
+}
+
+.breakdown-bar-track {
+    height: 6px;
+    background-color: #fbe4d8;
+    border-radius: 999px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.breakdown-bar-fill {
+    height: 100%;
+    background-color: #e35205;
+    border-radius: 999px;
 }

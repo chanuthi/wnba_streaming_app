@@ -192,7 +192,16 @@ def _ensure_service_price_columns():
     won't add new columns to a `services` table that was already sitting in
     wnba.db from before this pricing data existed. Adds them in-place if
     missing; a harmless no-op once they're there.
+
+    SQLite-only: this whole patch exists because an old SQLite file might
+    predate these columns. A fresh Postgres database has no such history -
+    create_all() already creates `services` with every current model column
+    from scratch - and "PRAGMA table_info" below is SQLite-specific syntax
+    that would just error out against Postgres, so skip entirely there.
     """
+    if engine.dialect.name != "sqlite":
+        return
+
     with engine.connect() as conn:
         existing_cols = {row[1] for row in conn.exec_driver_sql("PRAGMA table_info(services)")}
         new_columns = {
