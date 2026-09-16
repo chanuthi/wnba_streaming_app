@@ -53,11 +53,11 @@ function ZipEntryScreen({ initialZip, onSubmit }: ZipEntryScreenProps) {
       )}
 
       <div className="social-links">
+        <a href="https://www.linkedin.com/in/chanuthi/" target="_blank" rel="noopener noreferrer">
+            <img src={linkedinIcon} alt="LinkedIn" />
+        </a>
         <a href="https://github.com/chanuthi" target="_blank" rel="noopener noreferrer">
           <img src={githubIcon} alt="GitHub" />
-        </a>
-        <a href="https://www.linkedin.com/in/chanuthi/" target="_blank" rel="noopener noreferrer">
-          <img src={linkedinIcon} alt="LinkedIn" />
         </a>
       </div>
     </div>
