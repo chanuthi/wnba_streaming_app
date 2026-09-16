@@ -35,20 +35,21 @@ function ZipEntryScreen({ initialZip, onSubmit }: ZipEntryScreenProps) {
         </p>
       </div>
 
-      <p className="notice">We won't save your zip code or any personal data.</p>
+      <p className="notice">Enter your zip code below — we won't save it or any personal data.</p>
 
       <form onSubmit={handleSubmit} className="zipform">
-        <div className="zipform-field">
-          <label htmlFor="zip-input" className="zipform-label">Zip code</label>
-          <input
-            id="zip-input"
-            type="text"
-            value={zip}
-            onChange={(e) => setZip(e.target.value)}
-            placeholder="e.g 46201"
-            maxLength={5}
-          />
-        </div>
+        {/* Visually hidden but still read by screen readers - the visible
+            instruction lives in the notice line above instead, so the
+            input doesn't need its own on-screen label. */}
+        <label htmlFor="zip-input" className="sr-only">Zip code</label>
+        <input
+          id="zip-input"
+          type="text"
+          value={zip}
+          onChange={(e) => setZip(e.target.value)}
+          placeholder="e.g 46201"
+          maxLength={5}
+        />
         <button type="submit" aria-label="Continue" />
       </form>
 

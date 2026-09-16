@@ -93,19 +93,19 @@
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
 }
 
-.zipform-field {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.zipform-label {
-    font-family: "Google Sans Flex", sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #c9a493;
+/* Visually hidden but still readable by screen readers - standard
+   sr-only pattern (clipped to 1px instead of display:none, which some
+   screen readers skip entirely). */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 .zipform input {
