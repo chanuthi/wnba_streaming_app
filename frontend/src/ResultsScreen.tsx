@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import * as Sentry from "@sentry/react";
 import type { RecommendationResult, Team } from "./types";
 import { API_BASE_URL } from "./api/config";
 import { logoUrl } from "./teamLogo";
@@ -37,7 +38,10 @@ function ResultsScreen({ team, zipCode, onZipChange, onBackToTeam }: ResultsScre
         return response.json();
       })
       .then((data: RecommendationResult) => setResult(data))
-      .catch((err) => setError(err.message));
+      .catch((err) => {
+        Sentry.captureException(err);
+        setError(err.message);
+      });
   }, [team.id, zipCode]);
 
   function handleZipUpdate(e: React.FormEvent) {

@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Image, Environment, Text } from "@react-three/drei";
 import { easing } from "maath";
+import * as Sentry from "@sentry/react";
 import type { Team } from "./types";
 import { API_BASE_URL } from "./api/config";
 import { logoUrl } from "./teamLogo";
@@ -40,7 +41,14 @@ function TeamPickerScreen({ onSelect, onBack }: TeamPickerScreenProps) {
         return response.json();
       })
       .then((data: Team[]) => setTeams(data))
-      .catch((err) => setError(err.message))
+      .catch((err) => {
+        // This is caught and shown as a friendly message, so by default
+        // Sentry would never see it (it only auto-reports uncaught
+        // errors) - report it explicitly so a real failure like this
+        // shows up instead of needing a screenshot from whoever hit it.
+        Sentry.captureException(err);
+        setError(err.message);
+      })
       .finally(() => clearTimeout(slowLoadTimer));
 
     return () => clearTimeout(slowLoadTimer);
