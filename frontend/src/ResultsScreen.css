@@ -41,8 +41,8 @@
 }
 
 .results-body h2 {
-    font-size: 22px;
-    margin: 28px 0 10px 0;
+    font-size: 20px;
+    margin: 16px 0 8px 0;
 }
 
 /* -------------------------------- */
@@ -209,10 +209,10 @@
     font-weight: 600;
 }
 
-.results-stats {
+.bento-stats {
     display: flex;
     gap: 16px;
-    margin: 20px 0;
+    margin: 14px 0;
 }
 
 .stat-tile {
@@ -289,6 +289,194 @@
 }
 
 /* -------------------------------- */
+/* Bento grid: combo hero + single card */
+/* -------------------------------- */
+
+.bento-grid {
+    display: flex;
+    gap: 16px;
+    margin: 12px 0;
+    align-items: stretch;
+}
+
+.combo-hero {
+    flex: 2;
+    background-color: #e35205;
+    color: #fff5ef;
+    border-radius: 16px;
+    padding: 18px 24px;
+    box-shadow: 0 8px 24px rgba(227, 82, 5, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.combo-hero-empty {
+    background-color: #fff0e6;
+    color: #5c2c1f;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.combo-hero-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    opacity: 0.85;
+}
+
+.combo-hero-title {
+    font-family: "Slabo 13px", serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+}
+
+.combo-hero-meta {
+    font-size: 13px;
+    line-height: 1.4;
+    margin: 0 0 14px 0;
+    opacity: 0.95;
+}
+
+.combo-hero-figures {
+    display: flex;
+    gap: 28px;
+    margin-top: auto;
+}
+
+.combo-hero-figure-value {
+    font-family: "Slabo 13px", serif;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.combo-hero-figure-label {
+    font-size: 12px;
+    opacity: 0.85;
+    margin-top: 2px;
+}
+
+.single-card {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media (max-width: 640px) {
+    .bento-grid {
+        flex-direction: column;
+    }
+}
+
+/* -------------------------------- */
+/* Coming up games list               */
+/* -------------------------------- */
+
+.coming-up-card {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.coming-up-header h2 {
+    margin: 0 0 10px 0;
+}
+
+/* Horizontal strip instead of a stacked list - trades vertical page height
+   (which stacks up fast across Coming Up + Full Breakdown) for a scroll
+   that's contained to just this one card. */
+.coming-up-list {
+    list-style: none;
+    padding: 0 0 4px 0;
+    margin: 0;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+}
+
+.coming-up-row {
+    flex: 0 0 148px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background-color: #fff8f4;
+    border-radius: 10px;
+    padding: 10px 12px;
+}
+
+.coming-up-row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.coming-up-date {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    color: #e35205;
+}
+
+.coming-up-month {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.coming-up-day {
+    font-family: "Slabo 13px", serif;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.coming-up-matchup {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.3;
+    /* Reserves space for 2 lines even when the opponent's name is short
+       enough to fit on 1 - otherwise the badge below ends up at a different
+       height on every card, depending on how long that one name happened
+       to be. */
+    min-height: 2.6em;
+}
+
+.coming-up-time {
+    font-size: 12px;
+    color: #8a6a5c;
+    white-space: nowrap;
+}
+
+.coming-up-badge {
+    align-self: flex-start;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+    background-color: #fff0e6;
+    color: #e35205;
+}
+
+.coming-up-badge-local_broadcast {
+    background-color: #f2e2d8;
+    color: #6b4a3e;
+}
+
+.coming-up-badge-not_listed {
+    background-color: #fbe4e8;
+    color: #b7245c;
+}
+
+/* -------------------------------- */
 /* Full breakdown list               */
 /* -------------------------------- */
 
@@ -296,15 +484,21 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
+}
+
+@media (max-width: 640px) {
+    .breakdown-list {
+        grid-template-columns: 1fr;
+    }
 }
 
 .breakdown-row {
     background-color: #fff;
     border-radius: 12px;
-    padding: 12px 18px;
+    padding: 10px 16px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 

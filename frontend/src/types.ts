@@ -25,6 +25,16 @@ export interface ComboCoverage {
   total_monthly_price: number | null;
 }
 
+export interface Game {
+  id: number;
+  game_datetime: string;
+  home_team: string;
+  away_team: string;
+  network: string | null;
+  status: "streaming" | "local_broadcast" | "not_listed";
+  streaming_services: string[];
+}
+
 export interface RecommendationResult {
   team: string;
   zip_code: string;
