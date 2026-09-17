@@ -28,7 +28,20 @@ DATABASE_URL = os.getenv("DATABASE_URL", _DEFAULT_SQLITE_URL)
 # check_same_thread is only needed for SQLite; harmless to set conditionally
 connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
 
-engine = create_engine(DATABASE_URL, connect_args=connect_args)
+# pool_pre_ping: test each pooled connection with a cheap "is it alive"
+# check before handing it to a query, transparently reconnecting if not.
+# Needed because Neon (like most managed Postgres) closes connections that
+# sit idle for a while server-side - without this, SQLAlchemy doesn't find
+# out a pooled connection is dead until a real query fails against it
+# (surfaced as psycopg2.OperationalError: SSL connection has been closed
+# unexpectedly). pool_recycle proactively retires connections after 5
+# minutes so they're refreshed before Neon has a chance to close them.
+engine = create_engine(
+    DATABASE_URL,
+    connect_args=connect_args,
+    pool_pre_ping=True,
+    pool_recycle=300,
+)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
