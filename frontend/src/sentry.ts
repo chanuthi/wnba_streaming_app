@@ -6,5 +6,5 @@ import * as Sentry from "@sentry/react";
 // since neither is needed to answer "did a real user hit a failed
 // request" - the actual gap this is closing.
 Sentry.init({
-  dsn: "https://41c596dae9ac01b33323ad1fb4228448@o4512099059630080.ingest.us.sentry.io/4512099081125888",
+  dsn: "https://4a78d8f837739c16ae5490ba507ede8e@o4512099059630080.ingest.us.sentry.io/4512099098099712",
 });
