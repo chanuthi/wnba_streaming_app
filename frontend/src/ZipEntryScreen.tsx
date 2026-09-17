@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import './ZipEntryScreen.css';
 import githubIcon from './assets/social/github.svg';
 import linkedinIcon from './assets/social/linkedin.svg';
+import { API_BASE_URL } from "./api/config";
 
 declare module '*.css';
 declare module '*.module.css';
@@ -14,6 +15,14 @@ interface ZipEntryScreenProps {
 function ZipEntryScreen({ initialZip, onSubmit }: ZipEntryScreenProps) {
   const [zip, setZip] = useState(initialZip);
   const [validationError, setValidationError] = useState<string | null>(null);
+
+  // The backend is on a free tier that spins down after inactivity - firing
+  // this the moment the very first screen mounts gives it a head start on
+  // waking up during the time the user spends reading/typing their zip,
+  // instead of only starting the wake-up once they reach the team picker.
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/health`).catch(() => {});
+  }, []);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
