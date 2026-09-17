@@ -8,6 +8,8 @@ Then visit http://127.0.0.1:8000/docs for interactive API docs
 (FastAPI generates this automatically from your endpoints + schemas).
 """
 
+import logging
+
 from fastapi import FastAPI, Depends, Query
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -18,6 +20,16 @@ from app.database import get_db
 from app.models import Game, Team
 from app.schemas import GameOut, TeamOut
 from app.coverage import calculate_best_plans
+
+# Plain stdout logging - no file, no external service. Render (and most
+# hosts) capture a process's stdout/stderr automatically and show it in
+# their dashboard's Logs tab, so this is the entire setup needed to get
+# real visibility into what the deployed app is doing.
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+)
+logger = logging.getLogger("wnba")
 
 app = FastAPI(title="WNBA Streaming Finder API")
 
@@ -67,7 +79,9 @@ def health_check():
 
 @app.get("/teams", response_model=list[TeamOut])
 def list_teams(db: Session = Depends(get_db)):
-    return db.query(Team).order_by(Team.name).all()
+    teams = db.query(Team).order_by(Team.name).all()
+    logger.info("GET /teams -> %d teams", len(teams))
+    return teams
 
 
 @app.get("/games", response_model=list[GameOut])
@@ -105,9 +119,19 @@ def recommend_plan(
     """
     team = db.query(Team).filter_by(id=team_id).first()
     if not team:
+        logger.warning("GET /recommend team_id=%s zip_code=%s -> no such team", team_id, zip_code)
         return {"error": f"No team found with id {team_id}"}
 
     result = calculate_best_plans(db, team_id, zip_code)
     result["team"] = team.name
     result["zip_code"] = zip_code
+
+    best_single = result["best_single_service"]
+    logger.info(
+        "GET /recommend team=%s zip_code=%s -> coverable=%d best_single=%s",
+        team.name,
+        zip_code,
+        result["coverable_games"],
+        best_single["service"] if best_single else None,
+    )
     return result
